@@ -1,4 +1,4 @@
-public class CustomAgeException extends Exception{
+public class CustomAgeException extends IllegalArgumentException{
     public CustomAgeException(String msg){
         super(msg);
     }
