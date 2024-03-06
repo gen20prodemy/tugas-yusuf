@@ -1,6 +1,5 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -34,6 +33,8 @@ public class Main {
                     System.out.println();
                     break;
                 case 4:
+                    konversiList(list);
+                    System.out.println();
                     break;
                 case 5:
                     p=false;
@@ -80,5 +81,31 @@ public class Main {
             return;
         }
         System.out.println("Data ke-"+index+": "+listBarang.get(index));
+    }
+
+    public static void konversiList(List<Barang> listBarang){
+        System.out.println();
+
+        System.out.print("ArrayList: ");
+        System.out.println(listBarang);
+        System.out.println();
+
+        LinkedList<Barang> linkedList = new LinkedList<>(listBarang);
+        System.out.println("Convert ke LinkedList: "+linkedList);
+        System.out.println();
+
+        HashSet<Barang> set = new HashSet<>(listBarang);
+
+        System.out.print("Convert menjadi HashSet: ");
+        System.out.println(set);
+        System.out.println();
+
+        HashMap<Integer, Barang> map = new HashMap<>();
+        int defaultKey = 0;
+        for (Barang barang : set){
+            map.put(defaultKey++, barang);
+        }
+        System.out.print("Convert menjadi Map: ");
+        System.out.println(map);
     }
 }
