@@ -1,12 +1,11 @@
 package filecrud;
-
-import crud.IFileCRUD;
+import crud.CRUD;
 import pojo.DataSiswa;
 
 import java.io.*;
 import java.util.*;
 
-public class FileCRUD implements IFileCRUD {
+public class FileCRUD extends CRUD {
     private String filePath;
 
     public FileCRUD(String filePath){
