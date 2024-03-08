@@ -1,2 +1,2 @@
 1, ucup, 10
-2, vals, 9
+2, valent, 12
