@@ -77,10 +77,13 @@ public class Main {
         scanner.nextLine();  // consume the newline character
         System.out.print("Masukkan Nama Baru: ");
         String newNama = scanner.nextLine();
+        System.out.print("Masukkan Kelas baru: ");
+        int newKelas = scanner.nextInt();
 
         DataSiswa updatedData = new DataSiswa();
         updatedData.setId(idToUpdate);
         updatedData.setNama(newNama);
+        updatedData.setKelas(newKelas);
 
         fileCRUD.updateRow(updatedData);
     }
