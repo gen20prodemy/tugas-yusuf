@@ -15,51 +15,52 @@ public class FileCRUD implements IFileCRUD {
 
     @Override
     public void addRow(DataSiswa data) {
-        List<DataSiswa> dataList = readDataFromFile();
-        if(dataList.contains(data)){
+        Map<Integer, DataSiswa> dataMap = readDataFromFile();
+        if(dataMap.containsKey(data.getId())){
             System.out.println("Data sudah ada.");
         } else {
-            dataList.add(data);
-            writeDataToFile(dataList);
+            dataMap.put(data.getId(), data);
+            writeDataToFile(dataMap);
             System.out.println("Data berhasil ditambah");
         }
     }
 
     @Override
     public void updateRow(DataSiswa data) {
-        List<DataSiswa> dataList = readDataFromFile();
-        if(!dataList.contains(data)){
+        Map<Integer, DataSiswa> dataMap = readDataFromFile();
+        if(!dataMap.containsKey(data.getId())){
             System.out.println("Data tidak ditemukan");
         } else{
-            dataList.remove(data);
-            dataList.add(data);
-            writeDataToFile(dataList);
+            dataMap.remove(data.getId());
+            dataMap.put(data.getId(), data);
+            writeDataToFile(dataMap);
             System.out.println("Data berhasil diupdate");
         }
     }
 
     @Override
     public void deleteRow(DataSiswa data) {
-        List<DataSiswa> dataList = readDataFromFile();
-        if(!dataList.contains(data)){
+        Map<Integer, DataSiswa> dataMap = readDataFromFile();
+        if(!dataMap.containsKey(data.getId())){
             System.out.println("Data tidak ditemukan");
         } else {
-            dataList.remove(data);
-            writeDataToFile(dataList);
+            dataMap.remove(data.getId());
+            writeDataToFile(dataMap);
             System.out.println("Data Berhasil dihapus");
         }
     }
 
     public void showData(){
-        List<DataSiswa> dataList = readDataFromFile();
+        Map<Integer, DataSiswa> dataMap = readDataFromFile();
         System.out.println("Data siswa: ");
-        for(DataSiswa data: dataList){
+        for(Map.Entry<Integer, DataSiswa> entry: dataMap.entrySet()){
+            DataSiswa data = entry.getValue();
             System.out.println("ID: " + data.getId()+", Nama: "+ data.getNama()+", Kelas: "+data.getKelas());
         }
     }
 
-    public List<DataSiswa> readDataFromFile() {
-        List<DataSiswa> dataList = new ArrayList<>();
+    public Map<Integer, DataSiswa> readDataFromFile() {
+        Map<Integer, DataSiswa> dataMap = new HashMap<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -69,7 +70,7 @@ public class FileCRUD implements IFileCRUD {
                     data.setId(Integer.parseInt(parts[0].trim()));
                     data.setNama(parts[1].trim());
                     data.setKelas(Integer.parseInt(parts[2].trim()));
-                    dataList.add(data);
+                    dataMap.put(data.getId(), data);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -77,12 +78,12 @@ public class FileCRUD implements IFileCRUD {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return dataList;
+        return dataMap;
     }
 
-    public void writeDataToFile(List<DataSiswa> dataList) {
+    public void writeDataToFile(Map<Integer, DataSiswa> dataMap) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            for (DataSiswa data : dataList) {
+            for (DataSiswa data : dataMap.values()) {
                 writer.write(String.format("%d, %s, %d%n", data.getId(), data.getNama(), data.getKelas()));
             }
         } catch (IOException e) {
