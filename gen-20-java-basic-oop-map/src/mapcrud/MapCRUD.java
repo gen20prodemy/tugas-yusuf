@@ -1,13 +1,13 @@
 package mapcrud;
 
 import customerror.DuplicateIdException;
-import interfacecrud.CRUD;
+import interfacecrud.ICRUD;
 import pojo.DataSiswa;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class MapCRUD extends CRUD {
+public class MapCRUD implements ICRUD {
     private Map<Integer, DataSiswa> mapData;
 
     public MapCRUD(){

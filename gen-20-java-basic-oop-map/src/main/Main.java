@@ -1,6 +1,6 @@
 package main;
 
-import interfacecrud.CRUD;
+import interfacecrud.ICRUD;
 import mapcrud.MapCRUD;
 import pojo.DataSiswa;
 
@@ -10,11 +10,11 @@ public class Main {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
             System.out.println("Java OOP Map");
-            CRUD mapCRUD = new MapCRUD();
+            ICRUD mapCRUD = new MapCRUD();
             testCRUD(mapCRUD, s);
     }
 
-    private static void testCRUD(CRUD crud, Scanner scanner){
+    private static void testCRUD(ICRUD crud, Scanner scanner){
         boolean r = true;
         while (r) {
             System.out.println("1. Tambah Element");
@@ -53,7 +53,7 @@ public class Main {
         }
     }
 
-    private static void addElement(CRUD crud, Scanner scanner){
+    private static void addElement(ICRUD crud, Scanner scanner){
         System.out.print("Masukkan ID: ");
         int id = scanner.nextInt();
         scanner.nextLine();
@@ -65,7 +65,7 @@ public class Main {
         crud.addElement(newData);
     }
 
-    private static void updateElement(CRUD crud, Scanner scanner){
+    private static void updateElement(ICRUD crud, Scanner scanner){
         System.out.print("Masukkan ID yang ingin diupdate: ");
         int idToUpdate = scanner.nextInt();
         scanner.nextLine();
@@ -76,7 +76,7 @@ public class Main {
         crud.updateElement(updateData);
     }
 
-    private static void deleteElement(CRUD crud, Scanner scanner){
+    private static void deleteElement(ICRUD crud, Scanner scanner){
         System.out.print("Masukkan Id yang akan dihapus: ");
         int idToDelete = scanner.nextInt();
         scanner.nextLine();
