@@ -39,4 +39,9 @@ public class ProductsController {
     public GlobalHttpResponse<ProductsEntity> updateById(@PathVariable("id") int id, @RequestBody ProductsDTO productsDTO){
         return productsService.updateById(productsDTO, id);
     }
+
+    @DeleteMapping("/{id}")
+    public GlobalHttpResponse<ProductsEntity> deleteById(@PathVariable("id") int id){
+        return productsService.deleteById(id);
+    }
 }

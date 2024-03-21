@@ -39,4 +39,9 @@ public class CategoriesController {
     public GlobalHttpResponse<CategoriesEntity> updateById(@PathVariable("id") int id, @RequestBody CategoriesDTO categoriesDTO){
         return categoriesService.updateById(id, categoriesDTO);
     }
+
+    @DeleteMapping("/{id}")
+    public GlobalHttpResponse<CategoriesEntity> deleteById(@PathVariable("id") int id){
+        return categoriesService.deleteById(id);
+    }
 }
