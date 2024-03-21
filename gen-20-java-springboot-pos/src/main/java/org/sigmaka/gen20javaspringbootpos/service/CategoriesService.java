@@ -48,4 +48,15 @@ public class CategoriesService {
         category.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
         return new GlobalHttpResponse<>(200, "Success update data", categoriesRepo.save(category));
     }
+
+    public GlobalHttpResponse<CategoriesEntity> deleteById(int id){
+        Optional<CategoriesEntity> optional = categoriesRepo.findById(id);
+        if (optional.isEmpty()) {
+            return new GlobalHttpResponse<>(404, "Data not found", new CategoriesEntity());
+        }
+
+        CategoriesEntity category = optional.get();
+        categoriesRepo.deleteById(id);
+        return new GlobalHttpResponse<>(200, "Success delete data", category);
+    }
 }

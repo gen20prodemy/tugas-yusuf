@@ -49,4 +49,14 @@ public class ProductsService {
         ProductsEntity result = productsRepo.save(product);
         return new GlobalHttpResponse<>(200, "Success update data", result);
     }
+
+    public GlobalHttpResponse<ProductsEntity> deleteById(int id){
+        Optional<ProductsEntity> optional = productsRepo.findById(id);
+        if (optional.isEmpty()) {
+            return new GlobalHttpResponse<>(404, "Data not found", new ProductsEntity());
+        }
+        ProductsEntity product = optional.get();
+        productsRepo.deleteById(id);
+        return new GlobalHttpResponse<>(200, "Success delete data", product);
+    }
 }
