@@ -1,9 +1,11 @@
 package org.sigmaka.gen20javaspringbootpos.entity;
 
 import jakarta.persistence.*;
+import org.sigmaka.gen20javaspringbootpos.dto.CategoriesDTO;
+import org.sigmaka.gen20javaspringbootpos.dto.ProductsResponseDTO;
 
 import java.sql.Timestamp;
-import java.util.Objects;
+import java.util.Collection;
 
 @Entity
 @Table(name = "products", schema = "public", catalog = "POS")
@@ -19,17 +21,27 @@ public class ProductsEntity {
     @Column(name = "price", nullable = false)
     private int price;
     @Basic
-    @Column(name = "category_id", nullable = true)
-    private Integer categoryId;
-    @Basic
     @Column(name = "quantity", nullable = false)
     private int quantity;
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private CategoriesEntity category;
     @Basic
     @Column(name = "created_at", nullable = true)
     private Timestamp createdAt;
     @Basic
     @Column(name = "updated_at", nullable = true)
     private Timestamp updatedAt;
+    @OneToMany(mappedBy = "productsByProductId")
+    private Collection<TransactionsItemsEntity> transactionsItemsById;
+
+    public CategoriesEntity getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoriesEntity category) {
+        this.category = category;
+    }
 
     public int getId() {
         return id;
@@ -55,14 +67,6 @@ public class ProductsEntity {
         this.price = price;
     }
 
-    public Integer getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
-
     public int getQuantity() {
         return quantity;
     }
@@ -85,5 +89,27 @@ public class ProductsEntity {
 
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public ProductsResponseDTO entityToDto(){
+        ProductsResponseDTO product = new ProductsResponseDTO();
+        CategoriesDTO categories = new CategoriesDTO();
+
+        categories.setName(category.getName());
+
+        product.setId(id);
+        product.setName(name);
+        product.setPrice(price);
+        product.setQuantity(quantity);
+        product.setCategory(categories);
+        return product;
+    }
+
+    public Collection<TransactionsItemsEntity> getTransactionsItemsById() {
+        return transactionsItemsById;
+    }
+
+    public void setTransactionsItemsById(Collection<TransactionsItemsEntity> transactionsItemsById) {
+        this.transactionsItemsById = transactionsItemsById;
     }
 }

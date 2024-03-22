@@ -1,9 +1,12 @@
 package org.sigmaka.gen20javaspringbootpos.entity;
 
 import jakarta.persistence.*;
+import org.sigmaka.gen20javaspringbootpos.dto.CategoriesResponseDTO;
+import org.sigmaka.gen20javaspringbootpos.dto.ProductsResponseDTO;
 
 import java.sql.Timestamp;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "categories", schema = "public", catalog = "POS")
@@ -15,6 +18,8 @@ public class CategoriesEntity {
     @Basic
     @Column(name = "name", nullable = false, length = 50)
     private String name;
+    @OneToMany(mappedBy = "category")
+    private List<ProductsEntity> products;
     @Basic
     @Column(name = "created_at", nullable = true)
     private Timestamp createdAt;
@@ -52,5 +57,19 @@ public class CategoriesEntity {
 
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public CategoriesResponseDTO entityToDto(){
+        CategoriesResponseDTO categories = new CategoriesResponseDTO();
+        List<ProductsResponseDTO> products = new ArrayList<>();
+
+        for(ProductsEntity data : this.products){
+            products.add(data.entityToDto());
+        }
+
+        categories.setId(id);
+        categories.setName(name);
+        categories.setProducts(products);
+        return categories;
     }
 }
