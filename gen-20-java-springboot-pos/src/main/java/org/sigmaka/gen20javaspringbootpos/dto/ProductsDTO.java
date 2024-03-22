@@ -1,5 +1,6 @@
 package org.sigmaka.gen20javaspringbootpos.dto;
 
+import org.sigmaka.gen20javaspringbootpos.entity.CategoriesEntity;
 import org.sigmaka.gen20javaspringbootpos.entity.ProductsEntity;
 
 import java.sql.Timestamp;
@@ -44,10 +45,12 @@ public class ProductsDTO {
 
     public ProductsEntity dtoToEntity(){
         ProductsEntity product = new ProductsEntity();
+        CategoriesEntity categories = new CategoriesEntity();
+        categories.setId(categoryId);
 
         product.setName(name);
         product.setPrice(price);
-        product.setCategoryId(categoryId);
+//        product.(categoryId);
         product.setQuantity(quantity);
         product.setCreatedAt(new Timestamp(System.currentTimeMillis()));
         product.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
