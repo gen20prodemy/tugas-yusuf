@@ -1,14 +1,15 @@
 package org.sigmaka.gen20javaspringbootpos.controller;
 
 import org.sigmaka.gen20javaspringbootpos.dto.ProductsDTO;
-import org.sigmaka.gen20javaspringbootpos.entity.ProductsEntity;
+import org.sigmaka.gen20javaspringbootpos.dto.ProductsResponseDTO;
 import org.sigmaka.gen20javaspringbootpos.helper.GlobalHttpResponse;
 import org.sigmaka.gen20javaspringbootpos.service.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("api/products")
@@ -21,27 +22,32 @@ public class ProductsController {
     }
 
     @GetMapping("/")
-    public GlobalHttpResponse<List<ProductsEntity>> getAll(){
-        return productsService.getAll();
+    public ResponseEntity<GlobalHttpResponse<List<ProductsResponseDTO>>> getAll(){
+        GlobalHttpResponse<List<ProductsResponseDTO>> result = productsService.getAll();
+        return new ResponseEntity<>(result, HttpStatusCode.valueOf(result.getStatusCode()));
     }
 
     @GetMapping("/{id}")
-    public GlobalHttpResponse<Optional<ProductsEntity>> getById(@PathVariable("id") int id){
-        return productsService.getById(id);
+    public ResponseEntity<GlobalHttpResponse<ProductsResponseDTO>> getById(@PathVariable("id") int id){
+        GlobalHttpResponse<ProductsResponseDTO> response = productsService.getById(id);
+        return new ResponseEntity<>(response, HttpStatusCode.valueOf(response.getStatusCode()));
     }
 
     @PostMapping("/")
-    public GlobalHttpResponse<ProductsEntity> insert(@RequestBody ProductsDTO productsDTO){
-        return productsService.insert(productsDTO);
+    public ResponseEntity<GlobalHttpResponse<ProductsResponseDTO>> insert(@RequestBody ProductsDTO productsDTO){
+        GlobalHttpResponse<ProductsResponseDTO> result = productsService.insert(productsDTO);
+        return new ResponseEntity<>(result, HttpStatusCode.valueOf(result.getStatusCode()));
     }
 
     @PutMapping("/{id}")
-    public GlobalHttpResponse<ProductsEntity> updateById(@PathVariable("id") int id, @RequestBody ProductsDTO productsDTO){
-        return productsService.updateById(productsDTO, id);
+    public ResponseEntity<GlobalHttpResponse<ProductsResponseDTO>> updateById(@PathVariable("id") int id, @RequestBody ProductsDTO productsDTO){
+        GlobalHttpResponse<ProductsResponseDTO> result = productsService.updateById(productsDTO, id);
+        return new ResponseEntity<>(result, HttpStatusCode.valueOf(result.getStatusCode()));
     }
 
     @DeleteMapping("/{id}")
-    public GlobalHttpResponse<ProductsEntity> deleteById(@PathVariable("id") int id){
-        return productsService.deleteById(id);
+    public ResponseEntity<GlobalHttpResponse<ProductsResponseDTO>> deleteById(@PathVariable("id") int id){
+        GlobalHttpResponse<ProductsResponseDTO> result = productsService.deleteById(id);
+        return new ResponseEntity<>(result, HttpStatusCode.valueOf(result.getStatusCode()));
     }
 }
