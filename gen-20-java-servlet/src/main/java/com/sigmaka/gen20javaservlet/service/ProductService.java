@@ -1,29 +1,45 @@
 package com.sigmaka.gen20javaservlet.service;
 
-import com.sigmaka.gen20javaservlet.entity.ProductEntity;
+import com.sigmaka.gen20javaservlet.DTO.ProductsDTO;
+import com.sigmaka.gen20javaservlet.DTO.ProductsResponseDTO;
+import com.sigmaka.gen20javaservlet.entity.CategoriesEntity;
+import com.sigmaka.gen20javaservlet.entity.ProductsEntity;
+import com.sigmaka.gen20javaservlet.repository.CategoriesRepo;
+import com.sigmaka.gen20javaservlet.repository.ProductsRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ProductService {
 
-    private static List<ProductEntity> products = Arrays.asList(
-            new ProductEntity(1, "karton", 500000, 20),
-            new ProductEntity(2, "kardus", 50000, 200),
-            new ProductEntity(3, "buku", 5000, 2),
-            new ProductEntity(4, "bolpen", 500, 200),
-            new ProductEntity(5, "Potlot", 50, 250),
-            new ProductEntity(6, "Koentji", 5000000, 9999)
-    );
+    private ProductsRepo productsRepo;
+    private CategoriesRepo categoriesRepo;
 
-    public List<ProductEntity> findAll(){
-        return products;
+    @Autowired
+    public ProductService(ProductsRepo productsRepo, CategoriesRepo categoriesRepo) {
+        this.productsRepo = productsRepo;
+        this.categoriesRepo = categoriesRepo;
     }
 
-    public void add(ProductEntity product){
-        product.setId(products.getLast().getId()+1);
-        products.add(product);
+    public List<ProductsResponseDTO> findAll(){
+        List<ProductsEntity> product = productsRepo.findAll();
+        List<ProductsResponseDTO> result = new ArrayList<>();
+
+        for(ProductsEntity data : product){
+            result.add(data.entityToDto());
+        }
+
+        return result;
+    }
+
+    public void add(ProductsDTO productsDTO){
+        ProductsEntity product = productsDTO.dtoToEntity();
+        CategoriesEntity categories = categoriesRepo.findById(productsDTO.getCategoryId()).orElse(null);
+
+        product.setCategory(categories);
+        productsRepo.save(product);
     }
 }

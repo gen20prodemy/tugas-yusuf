@@ -1,26 +1,40 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Demo Products Spring MVC</title>
+    <title th:text="${msg}">Demo Spring MVC</title>
 </head>
 <body>
-<div class="flex justify-start h-20 bg-blue-100 text-black items-center px-10 text-md font-bold">
-    <a class="mx-10 text-2xl font-black" href="#">Java MVC</a>
-    <a class="mx-5 hover:bg-gray-700 hover:text-white" href="/">Home</a>
-    <a class="mx-5 hover:bg-gray-700 hover:text-white" href="/products">Products</a>
-</div>
+<div th:replace="fragment/template"></div>
+
 <div class="flex justify-center m-10 ">
-    <h1 class="text-3xl font-bold m-5" th:text="${msg}">Welcome to Products Spring MVC!</h1>
-</div>
-<div class="flex justify-center m-5 w-1/2">
-    <form action="post" th:action="@{/save}">
-        <div class="w-full flex mx-4 justify-center">
-            <label>Name</label>
-            <input type="text" class="block w-full round-md py-2 px-2 placeholder:text-gray-400" placeholder="nama produk" />
-        </div>
-    </form>
+    <div class="w-full max-w-xs">
+        <h1 class="text-2xl font-bold m-2" th:text="${msg}">Welcome to Products Spring MVC!</h1>
+        <form th:object="${product}" method="post" th:action="@{/products/save}">
+            <div class="mb-6">
+                <label for="name" class="block text-blue-600 text-md font-bold mb-2">Name</label>
+                <input type="text" class="block w-full round-md py-2 px-2 placeholder:text-gray-400 text-sm border rounded py-2 px-3" placeholder="nama produk" id="name" th:field="*{name}" />
+            </div>
+            <div class="mb-6">
+                <label for="price" class="block text-blue-600 text-md font-bold mb-2">Price</label>
+                <input type="text" class="block w-full round-md py-2 px-2 placeholder:text-gray-400 text-sm border rounded py-2 px-3" id="price" th:field="*{price}" />
+            </div>
+            <div class="mb-6">
+                <label for="quantity" class="block text-blue-600 text-md font-bold mb-2">Quantity</label>
+                <input type="number" class="block w-full round-md py-2 px-2 placeholder:text-gray-400 text-sm border rounded py-2 px-3" id="quantity" th:field="*{quantity}" />
+            </div>
+            <div class="mb-6">
+                <label for="category" class="block text-blue-600 text-md font-bold mb-2">Category</label>
+                <select type="number" class="block w-full round-md py-2 px-2  text-sm border rounded py-2 px-3 bg-white" id="category" th:field="*{categoryId}">
+<!--                    <option selected>Select Category</option>-->
+                    <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                </select>
+            </div>
+            <button type="submit" class="h-10 px-6 font-semibold text-white rounded-md bg-blue-600">Submit</button>
+        </form>
+    </div>
 </div>
 </body>
 </html>

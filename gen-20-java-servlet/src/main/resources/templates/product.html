@@ -23,6 +23,7 @@
         <tr>
             <th class="border border-slate-500 w-10">ID</th>
             <th class="border border-slate-500">Name</th>
+            <th class="border border-slate-500 w-24">Category</th>
             <th class="border border-slate-500 w-24">Price</th>
             <th class="border border-slate-500 w-20">Stock</th>
         </tr>
@@ -31,8 +32,9 @@
         <tr th:each="product : ${products}">
             <td class="border border-slate-500" th:text="${product.id}"></td>
             <td class="border border-slate-500" th:text="${product.name}"></td>
+            <td class="border border-slate-500" th:text="${product.category.name}"></td>
             <td class="border border-slate-500" th:text="${product.price}"></td>
-            <td class="border border-slate-500" th:text="${product.stock}"></td>
+            <td class="border border-slate-500" th:text="${product.quantity}"></td>
         </tr>
         </tbody>
     </table>
