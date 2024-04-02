@@ -7,6 +7,7 @@ import org.sigmaka.gen20javaspringbootpos.repository.CustomersRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,9 +28,14 @@ public class CustomersService {
     }
 
     public GlobalHttpResponse<String > insert(CustomersDTO customersDTO){
-        CustomerEntity newCust = customersDTO.dtoToEntity();
-        customersRepo.insertCustomerNative(newCust.getName(), newCust.getCreatedAt(), newCust.getUpdatedAt());
+        try{
+            CustomerEntity newCust = customersDTO.dtoToEntity();
+            customersRepo.insertCustomerNative(newCust.getName(), newCust.getCreatedAt(), newCust.getUpdatedAt());
 
-        return new GlobalHttpResponse<>(201, "Success insert new data", "Data successfully added to database");
+            return new GlobalHttpResponse<>(201, "Success insert new data", "Data successfully added to database");
+
+        } catch (Exception e){
+            return new GlobalHttpResponse<>(500, "Something went wrong", e.getMessage());
+        }
     }
 }
