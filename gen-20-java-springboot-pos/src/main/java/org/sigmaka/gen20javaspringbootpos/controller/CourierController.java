@@ -33,7 +33,7 @@ public class CourierController {
     }
 
     @GetMapping("/province/{id}")
-    public ResponseEntity<GlobalHttpResponse<ProvinceResponseDTO>> getProvinceById(@PathParam("id") String id){
+    public ResponseEntity<GlobalHttpResponse<ProvinceResponseDTO>> getProvinceById(@PathVariable("id") String id){
         GlobalHttpResponse<ProvinceResponseDTO> res = courierService.getProvinceById(id);
         return new ResponseEntity<>(res, HttpStatusCode.valueOf(res.getStatusCode()));
     }
@@ -45,7 +45,7 @@ public class CourierController {
     }
 
     @GetMapping("/city/{id}")
-    public ResponseEntity<GlobalHttpResponse<CityResponseDTO>> getCityById(@PathParam("id") String id){
+    public ResponseEntity<GlobalHttpResponse<CityResponseDTO>> getCityById(@PathVariable("id") String id){
         GlobalHttpResponse<CityResponseDTO> res = courierService.getCityById(id);
         return new ResponseEntity<>(res, HttpStatusCode.valueOf(res.getStatusCode()));
     }
