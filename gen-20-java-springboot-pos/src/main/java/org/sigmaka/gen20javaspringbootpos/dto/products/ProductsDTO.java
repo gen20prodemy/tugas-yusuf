@@ -1,4 +1,4 @@
-package org.sigmaka.gen20javaspringbootpos.dto;
+package org.sigmaka.gen20javaspringbootpos.dto.products;
 
 import org.sigmaka.gen20javaspringbootpos.entity.CategoriesEntity;
 import org.sigmaka.gen20javaspringbootpos.entity.ProductsEntity;

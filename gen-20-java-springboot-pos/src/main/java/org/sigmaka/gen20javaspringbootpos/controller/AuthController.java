@@ -1,9 +1,9 @@
 package org.sigmaka.gen20javaspringbootpos.controller;
 
-import org.sigmaka.gen20javaspringbootpos.dto.LoginDTO;
-import org.sigmaka.gen20javaspringbootpos.dto.LoginReponseDTO;
-import org.sigmaka.gen20javaspringbootpos.dto.RefreshTokenRequestDTO;
-import org.sigmaka.gen20javaspringbootpos.dto.SignupDTO;
+import org.sigmaka.gen20javaspringbootpos.dto.auth.LoginDTO;
+import org.sigmaka.gen20javaspringbootpos.dto.auth.LoginReponseDTO;
+import org.sigmaka.gen20javaspringbootpos.dto.auth.RefreshTokenRequestDTO;
+import org.sigmaka.gen20javaspringbootpos.dto.auth.SignupDTO;
 import org.sigmaka.gen20javaspringbootpos.helper.GlobalHttpResponse;
 import org.sigmaka.gen20javaspringbootpos.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;

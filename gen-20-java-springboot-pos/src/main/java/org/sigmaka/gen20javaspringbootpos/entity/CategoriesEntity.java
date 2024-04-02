@@ -1,8 +1,8 @@
 package org.sigmaka.gen20javaspringbootpos.entity;
 
 import jakarta.persistence.*;
-import org.sigmaka.gen20javaspringbootpos.dto.CategoriesResponseDTO;
-import org.sigmaka.gen20javaspringbootpos.dto.ProductsResponseDTO;
+import org.sigmaka.gen20javaspringbootpos.dto.categories.CategoriesResponseDTO;
+import org.sigmaka.gen20javaspringbootpos.dto.products.ProductsResponseDTO;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package org.sigmaka.gen20javaspringbootpos.service;
 
-import org.sigmaka.gen20javaspringbootpos.dto.CategoriesDTO;
+import org.sigmaka.gen20javaspringbootpos.dto.categories.CategoriesDTO;
 import org.sigmaka.gen20javaspringbootpos.entity.CategoriesEntity;
 import org.sigmaka.gen20javaspringbootpos.helper.GlobalHttpResponse;
 import org.sigmaka.gen20javaspringbootpos.repository.CategoriesRepo;

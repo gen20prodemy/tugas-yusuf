@@ -1,4 +1,6 @@
-package org.sigmaka.gen20javaspringbootpos.dto;
+package org.sigmaka.gen20javaspringbootpos.dto.products;
+
+import org.sigmaka.gen20javaspringbootpos.dto.categories.CategoriesDTO;
 
 public class ProductsResponseDTO {
     private int id;

@@ -1,4 +1,4 @@
-package org.sigmaka.gen20javaspringbootpos.dto;
+package org.sigmaka.gen20javaspringbootpos.dto.auth;
 
 import org.sigmaka.gen20javaspringbootpos.entity.RolesEntity;
 import org.sigmaka.gen20javaspringbootpos.entity.UsersEntity;

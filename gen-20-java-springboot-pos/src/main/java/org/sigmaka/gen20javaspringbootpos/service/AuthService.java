@@ -1,11 +1,10 @@
 package org.sigmaka.gen20javaspringbootpos.service;
 
 import jakarta.transaction.Transactional;
-import org.apache.catalina.User;
-import org.sigmaka.gen20javaspringbootpos.dto.LoginDTO;
-import org.sigmaka.gen20javaspringbootpos.dto.LoginReponseDTO;
-import org.sigmaka.gen20javaspringbootpos.dto.RefreshTokenRequestDTO;
-import org.sigmaka.gen20javaspringbootpos.dto.SignupDTO;
+import org.sigmaka.gen20javaspringbootpos.dto.auth.LoginDTO;
+import org.sigmaka.gen20javaspringbootpos.dto.auth.LoginReponseDTO;
+import org.sigmaka.gen20javaspringbootpos.dto.auth.RefreshTokenRequestDTO;
+import org.sigmaka.gen20javaspringbootpos.dto.auth.SignupDTO;
 import org.sigmaka.gen20javaspringbootpos.entity.RolesEntity;
 import org.sigmaka.gen20javaspringbootpos.entity.UsersEntity;
 import org.sigmaka.gen20javaspringbootpos.helper.GlobalHttpResponse;
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service

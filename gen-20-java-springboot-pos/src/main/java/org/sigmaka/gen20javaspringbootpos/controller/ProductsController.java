@@ -1,7 +1,7 @@
 package org.sigmaka.gen20javaspringbootpos.controller;
 
-import org.sigmaka.gen20javaspringbootpos.dto.ProductsDTO;
-import org.sigmaka.gen20javaspringbootpos.dto.ProductsResponseDTO;
+import org.sigmaka.gen20javaspringbootpos.dto.products.ProductsDTO;
+import org.sigmaka.gen20javaspringbootpos.dto.products.ProductsResponseDTO;
 import org.sigmaka.gen20javaspringbootpos.helper.GlobalHttpResponse;
 import org.sigmaka.gen20javaspringbootpos.service.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;

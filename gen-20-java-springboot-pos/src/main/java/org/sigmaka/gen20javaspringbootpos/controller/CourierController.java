@@ -1,6 +1,5 @@
 package org.sigmaka.gen20javaspringbootpos.controller;
 
-import jakarta.websocket.server.PathParam;
 import org.sigmaka.gen20javaspringbootpos.dto.courier.CityResponseDTO;
 import org.sigmaka.gen20javaspringbootpos.dto.courier.CostRequestDTO;
 import org.sigmaka.gen20javaspringbootpos.dto.courier.CostsResultResponseDTO;
