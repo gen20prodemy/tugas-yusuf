@@ -78,9 +78,10 @@ public class CourierService {
             ).getBody();
             Map<String, Object> rajaongkir = (Map<String, Object>) body.get("rajaongkir");
 
-            ProvinceResponseDTO results = (ProvinceResponseDTO) rajaongkir.get("results");
+            Map<String, String> results = (Map<String, String>) rajaongkir.get("results");
+            ProvinceResponseDTO province = new ProvinceResponseDTO(results.get("province_id"), results.get("province"));
 
-            return new GlobalHttpResponse<>(200, "Success retrieve data", results);
+            return new GlobalHttpResponse<>(200, "Success retrieve data", province);
 
         } catch (HttpClientErrorException.BadRequest e){
             return new GlobalHttpResponse<>(400, "Bad Request: Invalid API Key", new ProvinceResponseDTO());
@@ -142,16 +143,61 @@ public class CourierService {
                     new ParameterizedTypeReference<Map<String, Object>>() {}
             ).getBody();
             Map<String, Object> rajaongkir = (Map<String, Object>) body.get("rajaongkir");
-            CityResponseDTO results = (CityResponseDTO) rajaongkir.get("results");
+            Map<String, String> results = (Map<String, String>) rajaongkir.get("results");
+            CityResponseDTO city = new CityResponseDTO(
+                    results.get("city_id"),
+                    results.get("province_id"),
+                    results.get("province"),
+                    results.get("type"),
+                    results.get("city_name"),
+                    results.get("postal_code")
+            );
 
-
-            return new GlobalHttpResponse<>(200, "Success retrieve data", results);
+            return new GlobalHttpResponse<>(200, "Success retrieve data", city);
 
         } catch (HttpClientErrorException.BadRequest e){
             return new GlobalHttpResponse<>(400, "Bad Request: Invalid API Key", new CityResponseDTO());
         } catch (RestClientException e){
             e.printStackTrace();
             return new GlobalHttpResponse<>(500, "Internal Server Error", new CityResponseDTO());
+        }
+    }
+
+    public GlobalHttpResponse<List<CityResponseDTO>> getCityByProvinceId(String id){
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        headers.set("key", apiKey);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        try {
+            var body = restTemplate.exchange(
+                    baseUrl + "city?province=" + id,
+                    HttpMethod.GET,
+                    entity,
+                    new ParameterizedTypeReference<Map<String, Object>>() {}
+            ).getBody();
+            Map<String, Object> rajaongkir = (Map<String, Object>) body.get("rajaongkir");
+            List<Map<String, String>> results = (List<Map<String, String>>) rajaongkir.get("results");
+            List<CityResponseDTO> city = new ArrayList<>();
+
+            for(Map<String, String> data : results){
+                city.add(new CityResponseDTO(
+                        data.get("city_id"),
+                        data.get("province_id"),
+                        data.get("province"),
+                        data.get("type"),
+                        data.get("city_name"),
+                        data.get("postal_code")
+                ));
+            }
+
+            return new GlobalHttpResponse<>(200, "Success retrieve data", city);
+
+        } catch (HttpClientErrorException.BadRequest e){
+            return new GlobalHttpResponse<>(400, "Bad Request: Invalid API Key", new ArrayList<>());
+        } catch (RestClientException e){
+            e.printStackTrace();
+            return new GlobalHttpResponse<>(500, "Internal Server Error", new ArrayList<>());
         }
     }
 
