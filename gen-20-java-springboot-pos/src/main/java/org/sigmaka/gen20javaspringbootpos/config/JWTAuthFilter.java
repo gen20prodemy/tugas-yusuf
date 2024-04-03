@@ -1,4 +1,4 @@
-package org.sigmaka.gen20javaspringbootpos.security;
+package org.sigmaka.gen20javaspringbootpos.config;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
