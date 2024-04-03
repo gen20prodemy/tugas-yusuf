@@ -6,6 +6,7 @@ import org.sigmaka.gen20javaspringbootpos.service.CustomersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,8 +18,10 @@ public class CustomersController {
     private CustomersService customersService;
 
     @GetMapping("/")
+    @Scheduled(cron = "*/30 * * * * *")
     public ResponseEntity<GlobalHttpResponse<List<CustomersDTO>>> getAll(){
         GlobalHttpResponse<List<CustomersDTO>> result = customersService.findAll();
+        System.out.println(result.toString());
         return new ResponseEntity<>(result, HttpStatusCode.valueOf(result.getStatusCode()));
     }
 
