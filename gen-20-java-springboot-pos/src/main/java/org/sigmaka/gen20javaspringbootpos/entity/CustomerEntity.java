@@ -2,12 +2,15 @@ package org.sigmaka.gen20javaspringbootpos.entity;
 
 import jakarta.persistence.*;
 import org.sigmaka.gen20javaspringbootpos.dto.CustomersDTO;
+import org.springframework.data.redis.core.RedisHash;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "customers", catalog = "POS", schema = "public")
-public class CustomerEntity {
+@RedisHash("Customer")
+public class CustomerEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)

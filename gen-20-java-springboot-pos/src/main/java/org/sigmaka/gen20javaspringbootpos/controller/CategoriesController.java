@@ -4,9 +4,12 @@ import org.sigmaka.gen20javaspringbootpos.dto.categories.CategoriesDTO;
 import org.sigmaka.gen20javaspringbootpos.entity.CategoriesEntity;
 import org.sigmaka.gen20javaspringbootpos.helper.GlobalHttpResponse;
 import org.sigmaka.gen20javaspringbootpos.service.CategoriesService;
+import org.sigmaka.gen20javaspringbootpos.service.KafkaProducerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,10 +17,19 @@ import java.util.Optional;
 @RequestMapping("api/category")
 public class CategoriesController {
     private final CategoriesService categoriesService;
+    private final KafkaProducerService kafkaProducerService;
 
     @Autowired
-    public CategoriesController(CategoriesService categoriesService) {
+    public CategoriesController(CategoriesService categoriesService, KafkaProducerService kafkaProducerService) {
         this.categoriesService = categoriesService;
+        this.kafkaProducerService = kafkaProducerService;
+    }
+
+    @Scheduled(cron = "55 * * * * *")
+    public void sendMessageProduct(){
+        String message = "message category @time " + new Date(System.currentTimeMillis());
+        kafkaProducerService.sendMessage("category-topic", message);
+        System.out.println("Message Sent: " + message);
     }
 
     @GetMapping("/")

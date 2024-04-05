@@ -10,6 +10,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
@@ -28,7 +29,7 @@ public class CourierService {
     private final String apiKey = "1532177c781b5b272b98af8b223cb183";
     private final String baseUrl = "https://api.rajaongkir.com/starter/";
 
-
+    @Async
     public GlobalHttpResponse<List<ProvinceResponseDTO>> getProvince(){
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
@@ -201,6 +202,7 @@ public class CourierService {
         }
     }
 
+    @Async
     public GlobalHttpResponse<List<CostsResultResponseDTO>> getCost(CostRequestDTO costRequestDTO){
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
