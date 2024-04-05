@@ -26,7 +26,12 @@ public class CourierController {
     }
 
     @GetMapping("/province")
-    public ResponseEntity<GlobalHttpResponse<List<ProvinceResponseDTO>>> getProvince(){
+    public ResponseEntity<GlobalHttpResponse<List<ProvinceResponseDTO>>> getProvince() throws InterruptedException{
+        courierService.acceptRequest();
+        courierService.processingRequest();
+        courierService.forwardingRequest();
+        courierService.gettingResponseFromAPI();
+        courierService.returningResponseToClient();
         GlobalHttpResponse<List<ProvinceResponseDTO>> res = courierService.getProvince();
         return new ResponseEntity<>(res, HttpStatusCode.valueOf(res.getStatusCode()));
     }

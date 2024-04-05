@@ -16,6 +16,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,12 +26,42 @@ import java.util.Map;
 public class CourierService {
     @Autowired
     private RestTemplate restTemplate;
+    private static final Logger log = Logger.getLogger(CourierService.class.getName());
 
     private final String apiKey = "1532177c781b5b272b98af8b223cb183";
     private final String baseUrl = "https://api.rajaongkir.com/starter/";
 
-    @Async
-    public GlobalHttpResponse<List<ProvinceResponseDTO>> getProvince(){
+    @Async("asyncTaskExecutor")
+    public void acceptRequest() throws InterruptedException {
+        Thread.sleep(3000L);
+        log.info("Accepting Request from Client " + Thread.currentThread().getName());
+    }
+
+    @Async("asyncTaskExecutor")
+    public void processingRequest() throws InterruptedException {
+        Thread.sleep(4000L);
+        log.info("Processing Request from Client " + Thread.currentThread().getName());
+    }
+
+    @Async("asyncTaskExecutor")
+    public void forwardingRequest() throws InterruptedException {
+        Thread.sleep(5000L);
+        log.info("Forwarding Request to API " + Thread.currentThread().getName());
+    }
+
+    @Async("asyncTaskExecutor")
+    public void gettingResponseFromAPI() throws InterruptedException {
+        Thread.sleep(6000L);
+        log.info("Getting Response from API " + Thread.currentThread().getName());
+    }
+
+    @Async("asyncTaskExecutor")
+    public void returningResponseToClient() throws InterruptedException {
+        Thread.sleep(3000L);
+        log.info("Sending Response to Client " + Thread.currentThread().getName());
+    }
+
+    public GlobalHttpResponse<List<ProvinceResponseDTO>> getProvince() throws InterruptedException{
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         headers.set("key", apiKey);
