@@ -3,22 +3,34 @@ package org.sigmaka.gen20javaspringbootpos.controller;
 import org.sigmaka.gen20javaspringbootpos.dto.products.ProductsDTO;
 import org.sigmaka.gen20javaspringbootpos.dto.products.ProductsResponseDTO;
 import org.sigmaka.gen20javaspringbootpos.helper.GlobalHttpResponse;
+import org.sigmaka.gen20javaspringbootpos.service.KafkaProducerService;
 import org.sigmaka.gen20javaspringbootpos.service.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping("api/products")
 public class ProductsController {
     private final ProductsService productsService;
+    private final KafkaProducerService kafkaProducerService;
 
     @Autowired
-    public ProductsController(ProductsService productsService) {
+    public ProductsController(ProductsService productsService, KafkaProducerService kafkaProducerService) {
         this.productsService = productsService;
+        this.kafkaProducerService = kafkaProducerService;
+    }
+
+    @Scheduled(cron = "25 * * * * *")
+    public void sendMessageProduct(){
+        String message = "message product @time " + new Date(System.currentTimeMillis());
+        kafkaProducerService.sendMessage("product-topic", message);
+        System.out.println("Message Sent: " + message);
     }
 
     @GetMapping("/")
